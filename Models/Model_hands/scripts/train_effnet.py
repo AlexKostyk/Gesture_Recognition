@@ -87,10 +87,10 @@ def main():
     weight_decay = 2e-2
     label_smoothing = 0.1
     effnet_dropout = 0.3
-    best_ckpt_path = save_dir / "effnetb0_best_val_top1_hands_letters_03.pt"
-    plots_loss_path = save_dir / "curves_loss_letters_03.png"
-    plots_acc_path = save_dir / "curves_acc_letters_03.png"
-    report_path = save_dir / "classification_report_test_letters_03.txt"
+    best_ckpt_path = save_dir / "effnetb0_best_val_top1_hands.pt"
+    plots_loss_path = save_dir / "curves_loss_hands.png"
+    plots_acc_path = save_dir / "curves_acc_hands.png"
+    report_path = save_dir / "classification_report_test_hands.txt"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("device:", device)
     if device.type == "cuda":

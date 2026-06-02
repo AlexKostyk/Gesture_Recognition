@@ -5,7 +5,7 @@
 ## Возможности
 
 - распознавание жестов слов по holistic-точкам;
-- распознавание дактильных букв по точкам рук;
+- распознавание жестов по точкам рук, включая дактильные буквы;
 - вывод двух текстовых состояний: готовый нормализованный текст и сырые распознанные жесты;
 - сегментация потока жестов на короткие фрагменты без отправки всей истории в NLP-модель;
 - обучение модели нормализации gloss-to-text на JSONL-датасете;
@@ -27,7 +27,7 @@ Models/
   preprocess/           общий препроцессинг SLOVO в keypoints_out
   preprocess_slovo.py   общий запуск препроцессинга для words/hands
   Model_holistic/       обучение модели слов EfficientNetV2-S 384 из Neuro_Kall
-  Model_hands/          обучение модели дактиля
+  Model_hands/          обучение hands-модели жестов
 requirements.txt
 ```
 
@@ -63,10 +63,10 @@ Web_app/model/rut5-small-gloss/model.safetensors
 Models/Model_holistic/checkpoints_effnetv2_s_384/effnetv2_s_384_best_val_top1.pt
 ```
 
-Также включён checkpoint модели дактиля:
+Также включён checkpoint hands-модели жестов. Эта модель обучена на полном наборе классов `labels.json`; дактильные буквы являются только частью этих классов.
 
 ```text
-Models/Model_hands/checkpoints/effnetb0_best_val_top1_hands_letters_03.pt
+Models/Model_hands/checkpoints/effnetb0_best_val_top1_hands.pt
 ```
 
 Сохранённая NLP-модель для gloss-to-text лежит отдельно от веб-приложения:
@@ -155,7 +155,7 @@ keypoints_out/
   samples/*.npz
 ```
 
-Подготовка ключевых точек для модели дактиля:
+Подготовка ключевых точек для hands-модели:
 
 ```powershell
 python Models\preprocess_slovo.py --mode hands
@@ -173,7 +173,7 @@ Models/Model_hands/keypoints_out/
 python Models\Model_holistic\scripts\train_effnetv2_s_384.py
 ```
 
-Обучение модели дактиля:
+Обучение hands-модели:
 
 ```powershell
 python Models\Model_hands\scripts\train_effnet.py
