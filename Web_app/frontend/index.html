@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gesture Recognition - Camera Stream</title>
+    
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.min.js"></script>
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <main class="container">
+      <nav class="top-nav">
+        <a class="nav-link nav-link-active" href="/">Распознавание жестов</a>
+        <a class="nav-link" href="/translate">Перевод текста в жесты</a>
+      </nav>
+
+      <header class="page-header">
+        <h1>Распознавание жестов</h1>
+        <p class="page-subtitle">Съёмка жеста с камеры и распознавание через обученную модель.</p>
+      </header>
+
+      <section class="panel">
+        <div class="video-wrap">
+          <video id="video" autoplay playsinline></video>
+          <button id="switchCameraButton" class="camera-toggle" type="button" aria-label="Переключить камеру">
+            <img src="/imgs/cam.png" alt="" class="camera-toggle-icon" />
+          </button>
+          
+          <canvas id="captureCanvas" class="hidden"></canvas>
+          <div id="loadingOverlay" class="loading-overlay hidden" aria-live="polite">
+            <div class="loading-card">
+              <div class="spinner" aria-hidden="true"></div>
+              <p id="loadingText" class="loading-text">Инициализация...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="controls" id="startControls">
+        <label class="inline-label" for="modeSelect">Режим</label>
+        <select id="modeSelect">
+          <option value="hands">Только руки</option>
+          <option value="holistic">Руки + поза</option>
+        </select>
+        <label class="inline-label" for="durationInput">Длительность (сек)</label>
+        <input id="durationInput" type="number" min="0.5" max="10" step="0.5" value="2" />
+        <button id="startStreamButton">Начать стрим</button>
+      </div>
+
+      <div class="controls hidden" id="streamControls">
+        <button id="stopStreamButton">Остановить</button>
+      </div>
+
+      <div class="progress hidden" id="progressWrap">
+        <progress id="bufferProgress" max="2" value="0"></progress>
+        <span id="bufferText">0.0/2.0s</span>
+      </div>
+
+      <section class="panel transcript-panel">
+        <div class="transcript-header">
+          <h2 class="section-title">Готовый текст</h2>
+          <button id="clearTranscriptButton" type="button">Очистить</button>
+        </div>
+        <textarea
+          id="recognizedText"
+          class="recognized-textarea"
+          placeholder="После завершения сегментов здесь появятся готовые предложения."
+          readonly
+        ></textarea>
+
+        <label class="field-label transcript-raw-label" for="rawGestureText">Сырые жесты</label>
+        <textarea
+          id="rawGestureText"
+          class="recognized-textarea recognized-textarea-raw"
+          placeholder="Здесь будет виден поток классов, распознанных моделью жестов."
+          readonly
+        ></textarea>
+      </section>
+
+      <div class="inline-info hidden" id="infoWrap">
+        <p id="prediction" class="result">Распознавание: —</p>
+        <p id="stats" class="muted">fps: — | кадров: —</p>
+        <p id="analysis" class="muted"></p>
+        <p id="status" class="muted">Статус: ожидание действий</p>
+      </div>
+    </main>
+  </body>
+</html>

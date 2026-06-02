@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Перевод текста в жесты</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/translate.js" defer></script>
+  </head>
+  <body>
+    <main class="container">
+      <nav class="top-nav">
+        <a class="nav-link" href="/">Распознавание жестов</a>
+        <a class="nav-link nav-link-active" href="/translate">Перевод текста в жесты</a>
+      </nav>
+
+      <header class="page-header">
+        <h1>Перевод текста в жесты</h1>
+        <p class="page-subtitle">
+          Введите текст, затем выберите слово. Если видео для слова нет, будет
+          показана последовательность дактильных букв.
+        </p>
+      </header>
+
+      <section class="panel translator-layout">
+        <div class="translator-input">
+          <label class="field-label" for="translateInput">Текст для перевода</label>
+          <textarea
+            id="translateInput"
+            class="translate-textarea"
+            rows="5"
+            placeholder="Например: добро пожаловать домой"
+          ></textarea>
+          <div class="controls">
+            <button id="translateButton" type="button">Подготовить жесты</button>
+          </div>
+          <p id="translateStatus" class="muted">Введите текст и нажмите кнопку.</p>
+          <p id="translateStats" class="muted"></p>
+        </div>
+
+        <div class="translator-output">
+          <div class="word-bank">
+            <div class="section-title-row">
+              <h2 class="section-title">Слова</h2>
+              <button id="variantNextButton" type="button" class="variant-image-button" aria-label="Показать другой вариант видео">
+                <img src="/imgs/random.png" alt="" class="variant-image-icon" />
+              </button>
+            </div>
+            <div id="tokenList" class="token-list"></div>
+          </div>
+
+          <div class="player-card">
+            <div class="player-meta">
+              <h2 id="selectedTitle" class="section-title">Демонстрация</h2>
+              <p id="selectedDescription" class="muted">
+                Здесь появится выбранное слово и режим показа.
+              </p>
+            </div>
+
+            <div id="gestureVideoShell" class="gesture-video-shell">
+              <video
+                id="gestureVideo"
+                class="gesture-video"
+                playsinline
+                preload="metadata"
+              ></video>
+            </div>
+
+            <div id="sequenceInfo" class="sequence-info hidden">
+              <p id="sequenceStatus" class="muted"></p>
+              <div id="sequenceList" class="sequence-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

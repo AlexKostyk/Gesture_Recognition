@@ -1,0 +1,10 @@
+Neuro_Kall EfficientNetV2-S 384 local NPZ evaluation
+Data dir: D:\Project\Gesture_Recognition\Neuro_Kall\keypoints_out
+Checkpoint: D:\Project\Gesture_Recognition\Neuro_Kall\checkpoints_effnetv2_s_384\effnetv2_s_384_best_val_top1.pt
+Backend: directml
+Split: test
+Samples: 3592
+Input size: 384x384
+Loss: 1.7202
+Top-1 accuracy: 0.8330
+Elapsed time: 00:01:42 (102.7 sec)
